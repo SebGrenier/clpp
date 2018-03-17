@@ -2,8 +2,8 @@
 #define _CL_UTILS_HPP_
 
 namespace cl {
-	bool init_library();
-	bool free_library();
+	bool initLibrary();
+	bool freeLibrary();
 }
 
 

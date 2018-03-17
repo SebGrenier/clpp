@@ -7,7 +7,13 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
       "configurationType": "Debug",
-      "installRoot": "${workspaceRoot}\\build"
+      "installRoot": "${workspaceRoot}\\build",
+      "variables": [
+        {
+          "name": "WORKSPACEROOT",
+          "value": "${workspaceRoot}"
+        }
+      ]
     },
     {
       "name": "x64-Release",
@@ -16,7 +22,13 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
       "configurationType": "Release",
-      "installRoot": "${workspaceRoot}\\build"
+      "installRoot": "${workspaceRoot}\\build",
+      "variables": [
+        {
+          "name": "WORKSPACEROOT",
+          "value": "${workspaceRoot}"
+        }
+      ]
     }
  ]
 }

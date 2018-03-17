@@ -1,11 +1,11 @@
 #include "clUtils.hpp"
 
-bool cl::init_library()
+bool cl::initLibrary()
 {
 	return true;
 }
 
-bool cl::free_library()
+bool cl::freeLibrary()
 {
 	return true;
 }
