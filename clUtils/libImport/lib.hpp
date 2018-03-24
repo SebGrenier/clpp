@@ -17,14 +17,16 @@ namespace cl {
 
             // Prevent copying
             Lib(const Lib& rhs) = delete;
+            Lib(const Lib&& rhs) = delete;
             Lib& operator = (const Lib &rhs) = delete;
+            Lib& operator = (const Lib&& rhs) = delete;
 
             bool isLoaded() const { return _isLoaded; }
 
             template <typename T, typename = std::enable_if_t<std::is_function_v<T>>>
             T* loadFunction(const char *funcName)
             {
-                return _imp->loadFunction<T*>(funcName);
+                return _imp->loadFunction<T>(funcName);
             }
         private:
             LibImp *_imp;

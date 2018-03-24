@@ -4,8 +4,6 @@
 #include <type_traits>
 #include <windows.h>
 
-bool testMyFunc(int num, const char* str);
-
 namespace cl {
     namespace lib_import {
         class LibImpWin

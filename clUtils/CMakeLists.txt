@@ -11,7 +11,7 @@ if(${WIN32})
 	add_definitions (-DWINDOWS_PLATFORM)
 endif(${WIN32})
 
-list (APPEND Sources "clUtils.cpp")
+list (APPEND Sources "clUtils.cpp" "clLib.cpp")
 
 # Include subdirectories
 add_subdirectory ("libImport")

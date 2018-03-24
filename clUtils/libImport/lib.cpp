@@ -14,4 +14,3 @@ cl::lib_import::Lib::~Lib()
         _imp->unloadModule();
     delete _imp;
 }
-
