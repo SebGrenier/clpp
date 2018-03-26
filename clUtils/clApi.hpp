@@ -1,22 +1,20 @@
 #ifndef _CLLIB_HPP_
 #define _CLLIB_HPP_
-
-#include "libImport/lib.hpp"
 #include <CL/opencl.h>
 
 #define CL_FUNC_DECLARE(func) \
-    static decltype(func) *func;
+    decltype(func) *func;
 
 namespace cl {
-    class ClLib
+    class ClApi
     {
     public:
-        static ClLib* instance();
+        static ClApi* instance();
 
-        ClLib(const ClLib& other) = delete;
-        ClLib(ClLib&& other) noexcept = delete;
-        ClLib& operator=(const ClLib& other) = delete;
-        ClLib& operator=(ClLib&& other) noexcept = delete;
+        ClApi(const ClApi& other) = delete;
+        ClApi(ClApi&& other) noexcept = delete;
+        ClApi& operator=(const ClApi& other) = delete;
+        ClApi& operator=(ClApi&& other) noexcept = delete;
 
         bool initialize();
         void uninitialize() const;
@@ -29,15 +27,15 @@ namespace cl {
         CL_FUNC_DECLARE(clCreateCommandQueueWithProperties);
         CL_FUNC_DECLARE(clCreateCommandQueueWithPropertiesKHR);
         CL_FUNC_DECLARE(clCreateContext);
+        CL_FUNC_DECLARE(clSetDefaultDeviceCommandQueue);
 
     private:
-        ClLib();
-        ~ClLib() = default;
+        ClApi() = default;
+        ~ClApi() = default;
 
-        void initializeFunctions() const;
+        void initializeFunctions();
 
-        static ClLib *_instance;
-        lib_import::Lib* _lib;
+        static ClApi *_instance;
     };
 }
 

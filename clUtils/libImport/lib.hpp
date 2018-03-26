@@ -26,6 +26,8 @@ namespace cl {
             template <typename T, typename = std::enable_if_t<std::is_function_v<T>>>
             T* loadFunction(const char *funcName)
             {
+                if (!_isLoaded)
+                    return nullptr;
                 return _imp->loadFunction<T>(funcName);
             }
         private:

@@ -11,7 +11,7 @@ if(${WIN32})
 	add_definitions (-DWINDOWS_PLATFORM)
 endif(${WIN32})
 
-list (APPEND Sources "clUtils.cpp" "clLib.cpp")
+list (APPEND Sources "clUtils.cpp" "clApi.cpp")
 
 # Include subdirectories
 add_subdirectory ("libImport")
@@ -22,3 +22,6 @@ add_library (${PROJECT_NAME} ${Sources})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
 install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
+
+# Install Headers
+install(DIRECTORY "" DESTINATION includes FILES_MATCHING PATTERN "*.hpp")

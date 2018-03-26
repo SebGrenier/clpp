@@ -1,16 +1,16 @@
 #include "clUtils.hpp"
-#include "clLib.hpp"
+#include "clApi.hpp"
 
 bool cl::initLibrary()
 {
-    auto *clLib = ClLib::instance();
+    auto *clLib = ClApi::instance();
     const auto success = clLib->initialize();
 	return success;
 }
 
 bool cl::freeLibrary()
 {
-    auto *clLib = ClLib::instance();
+    auto *clLib = ClApi::instance();
     clLib->uninitialize();
 	return true;
 }

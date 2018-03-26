@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Visual Studio 15 2017 Win64",
+      "buildRoot": "${workspaceRoot}\\build\\clInfo\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
+      "configurationType": "Debug",
+      "installRoot": "${workspaceRoot}\\build",
+      "variables": [
+        {
+          "name": "WORKSPACEROOT",
+          "value": "${workspaceRoot}"
+        }
+      ]
+    },
+    {
+      "name": "x64-Release",
+      "generator": "Visual Studio 15 2017 Win64",
+      "buildRoot": "${workspaceRoot}\\build\\clInfo\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
+      "configurationType": "Release",
+      "installRoot": "${workspaceRoot}\\build",
+      "variables": [
+        {
+          "name": "WORKSPACEROOT",
+          "value": "${workspaceRoot}"
+        }
+      ]
+    }
+ ]
+}
