@@ -11,12 +11,20 @@ if(${WIN32})
 	add_definitions (-DWINDOWS_PLATFORM)
 endif(${WIN32})
 
-list (APPEND Sources "clUtils.cpp" "clApi.cpp")
+add_library (${PROJECT_NAME} "")
+
+target_sources (${PROJECT_NAME} 
+PRIVATE 
+	"clUtils.cpp"
+	"clApi.cpp"
+PUBLIC
+	"clUtils.hpp"
+	"clApi.hpp"
+	"clFunction.hpp"
+)
 
 # Include subdirectories
 add_subdirectory ("libImport")
-
-add_library (${PROJECT_NAME} ${Sources})
 
  # Make sure c++14 is available
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
