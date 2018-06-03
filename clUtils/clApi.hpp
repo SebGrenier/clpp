@@ -1,9 +1,11 @@
 #ifndef _CLLIB_HPP_
 #define _CLLIB_HPP_
+#include "clFunction.hpp"
+
 #include <CL/opencl.h>
 
 #define CL_FUNC_DECLARE(func) \
-    decltype(func) *func;
+    ClFunction<decltype(func)> func;
 
 namespace cl {
     class ClApi

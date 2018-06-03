@@ -6,7 +6,7 @@
 using namespace std;
 
 #define TEST_FUNC(FUNC) \
-    if (clApi->FUNC == nullptr) { \
+    if (!clApi->FUNC.valid()) { \
         cout << "Failed to load " << #FUNC << endl; \
     } \
 
