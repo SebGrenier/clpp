@@ -21,6 +21,8 @@ namespace cl {
         bool initialize();
         void uninitialize() const;
 
+        CL_FUNC_DECLARE(clGetPlatformIDs);
+        CL_FUNC_DECLARE(clGetPlatformInfo);
         CL_FUNC_DECLARE(clBuildProgram);
         CL_FUNC_DECLARE(clCloneKernel);
         CL_FUNC_DECLARE(clCompileProgram);

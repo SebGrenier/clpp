@@ -37,6 +37,8 @@ void cl::ClApi::uninitialize() const
 
 void cl::ClApi::initializeFunctions()
 {
+    CL_FUNC_IMPLEMENT(clGetPlatformIDs);
+    CL_FUNC_IMPLEMENT(clGetPlatformInfo);
     CL_FUNC_IMPLEMENT(clBuildProgram);
     CL_FUNC_IMPLEMENT(clCloneKernel);
     CL_FUNC_IMPLEMENT(clCompileProgram);

@@ -43,7 +43,7 @@ namespace cl {
 
             Ret operator () (Args... args)
             {
-                return _func(std::forward(args));
+                return _func(std::forward<Args>(args)...);
             }
 
             bool valid() const { return bool(_func); }
