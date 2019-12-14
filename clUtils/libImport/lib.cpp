@@ -3,7 +3,7 @@
 cl::lib_import::Lib::Lib(const char* module)
     : _isLoaded(false)
 {
-    _imp = new LibImpWin();
+    _imp = new LibImp();
     if (_imp->loadModule(module))
         _isLoaded = true;
 }
