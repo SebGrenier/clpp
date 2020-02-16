@@ -26,7 +26,7 @@ namespace cl {
                 _func = rhs._func;
             }
 
-            ClFunctionBase& operator = (const ClFunctionBase &rhs)
+            ClFunctionBase& operator = (const ClFunctionBase &rhs)  // NOLINT(cert-oop54-cpp) 
             {
                 _func = rhs._func;
                 return *this;
@@ -63,7 +63,7 @@ namespace cl {
         };
     }
 
-    template <class T>
+    template <class T, int MAJOR, int MINOR>
     class ClFunction : public details::_Get_function_impl<T>::FunctionType
     {
         typedef typename details::_Get_function_impl<T>::FunctionType MyBase;
@@ -88,6 +88,16 @@ namespace cl {
         {
             MyBase::operator=(functionPtr);
             return *this;
+        }
+
+        int majorVersion()
+        {
+            return MAJOR;
+        }
+
+        int minorVersion()
+        {
+            return MINOR;
         }
 
     private:

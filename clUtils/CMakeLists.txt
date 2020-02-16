@@ -17,10 +17,12 @@ target_sources (${PROJECT_NAME}
 PRIVATE 
 	"clUtils.cpp"
 	"clApi.cpp"
+	"clUtilities.cpp"
 PUBLIC
 	"clUtils.hpp"
 	"clApi.hpp"
 	"clFunction.hpp"
+	"clUtilities.hpp"
 )
 
 # Include subdirectories
