@@ -1,5 +1,5 @@
-#ifndef _CL_UTILS_HPP_
-#define _CL_UTILS_HPP_
+#ifndef _CL_PP_HPP_
+#define _CL_PP_HPP_
 
 #include "clApi.hpp"
 #include "clUtilities.hpp"
@@ -10,4 +10,4 @@ namespace cl {
 }
 
 
-#endif // _CL_UTILS_HPP_
+#endif // _CL_PP_HPP_

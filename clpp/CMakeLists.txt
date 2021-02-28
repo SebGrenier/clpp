@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-project (clUtils)
+project (clpp)
 
 # Add 3rd party include directories
 set (3RDPARTY_DIR "${WORKSPACEROOT}\\3rdParty")
@@ -13,13 +13,13 @@ endif(${WIN32})
 
 add_library (${PROJECT_NAME} "")
 
-target_sources (${PROJECT_NAME} 
-PRIVATE 
-	"clUtils.cpp"
+target_sources (${PROJECT_NAME}
+PRIVATE
+	"clpp.cpp"
 	"clApi.cpp"
 	"clUtilities.cpp"
 PUBLIC
-	"clUtils.hpp"
+	"clpp.hpp"
 	"clApi.hpp"
 	"clFunction.hpp"
 	"clUtilities.hpp"

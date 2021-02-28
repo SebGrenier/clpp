@@ -1,4 +1,4 @@
-#include "clUtils.hpp"
+#include "clpp.hpp"
 #include "clApi.hpp"
 
 bool cl::initLibrary()
