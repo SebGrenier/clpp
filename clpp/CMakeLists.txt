@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.8)
 project (clpp)
 
 # Add 3rd party include directories
-set (3RDPARTY_DIR "${WORKSPACEROOT}\\3rdParty")
-include_directories ("${3RDPARTY_DIR}\\include")
+set (OPENCL_DIR "${WORKSPACEROOT}\\OpenCL-Headers")
+include_directories ("${OPENCL_DIR}")
 
 # Add platform defines
 if(${WIN32})

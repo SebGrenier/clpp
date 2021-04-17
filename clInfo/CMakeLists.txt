@@ -3,8 +3,8 @@ cmake_minimum_required (VERSION 3.8)
 project (clInfo)
 
 # Add OpenCL as a 3rd party dir
-set (3RDPARTY_DIR "${WORKSPACEROOT}\\3rdParty")
-include_directories ("${3RDPARTY_DIR}\\include")
+set (OPENCL_DIR "${WORKSPACEROOT}\\OpenCL-Headers")
+include_directories ("${OPENCL_DIR}")
 
 # Add clpp as a 3rd party include directories
 set (BUILD_DIR "${WORKSPACEROOT}\\build")
