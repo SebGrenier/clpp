@@ -2,8 +2,11 @@ cmake_minimum_required (VERSION 3.8)
 
 project (clpp)
 
+set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include (set_sources)
+
 # Add 3rd party include directories
-set (OPENCL_DIR "${WORKSPACEROOT}\\OpenCL-Headers")
+set (OPENCL_DIR "${WORKSPACEROOT}/OpenCL-Headers")
 include_directories ("${OPENCL_DIR}")
 
 # Add platform defines
@@ -13,12 +16,14 @@ endif(${WIN32})
 
 add_library (${PROJECT_NAME} "")
 
-target_sources (${PROJECT_NAME}
-PRIVATE
+set (INCLUDE_INSTALL_DIR "${WORKSPACEROOT}/include")
+set (LIB_INSTALL_DIR "${WORKSPACEROOT}/lib")
+
+set_sources (SOURCEFILES
 	"clpp.cpp"
 	"clApi.cpp"
 	"clUtilities.cpp"
-PUBLIC
+HEADERS
 	"clpp.hpp"
 	"clApi.hpp"
 	"clFunction.hpp"
@@ -31,7 +36,8 @@ add_subdirectory ("libImport")
  # Make sure c++14 is available
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)
 
-install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
+# Install lib
+install (TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${LIB_INSTALL_DIR} ARCHIVE DESTINATION ${LIB_INSTALL_DIR})
 
-# Install Headers
-install(DIRECTORY "" DESTINATION includes FILES_MATCHING PATTERN "*.hpp")
+# Install OpenCL headers
+install (DIRECTORY "${OPENCL_DIR}/CL" DESTINATION ${INCLUDE_INSTALL_DIR})
