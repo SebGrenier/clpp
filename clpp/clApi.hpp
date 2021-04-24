@@ -126,6 +126,10 @@ namespace cl {
         CL_FUNC_DECLARE(clSetProgramReleaseCallback, 2, 2);
         CL_FUNC_DECLARE(clSetProgramSpecializationConstant, 2, 2);
 
+        CL_FUNC_DECLARE(clSetContextDestructorCallback, 3, 0);
+        CL_FUNC_DECLARE(clCreateBufferWithProperties, 3, 0);
+        CL_FUNC_DECLARE(clCreateImageWithProperties, 3, 0);
+
     private:
         ClApi() = default;
         ~ClApi() = default;

@@ -69,6 +69,8 @@ std::string cl::errorToString(int errorCode)
         ERROR_STRING_CASE(CL_INVALID_DEVICE_PARTITION_COUNT);
         ERROR_STRING_CASE(CL_INVALID_PIPE_SIZE);
         ERROR_STRING_CASE(CL_INVALID_DEVICE_QUEUE);
+        ERROR_STRING_CASE(CL_INVALID_SPEC_ID);
+        ERROR_STRING_CASE(CL_MAX_SIZE_RESTRICTION_EXCEEDED);
         default: {
             std::stringstream ss;
             ss << "Unknown error (" << errorCode << ")";

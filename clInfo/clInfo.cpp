@@ -30,6 +30,9 @@ void testFunctions()
     // 2.1 functions
     TEST_FUNC(clSetDefaultDeviceCommandQueue);
     TEST_FUNC(clCloneKernel);
+
+    // 3.0 functions
+    TEST_FUNC(clCreateBufferWithProperties);
 }
 
 void GetPlatformInfoForParam(cl_platform_id platformId, cl_platform_info param, const string& paramName)
@@ -120,8 +123,8 @@ int main(int argc, char** argv)
     if (success)
         cl::freeLibrary();
 
-    string buffer;
-    cin >> buffer;
+    cout << std::endl << "Press Enter to continue...";
+    cin.get();
 
     return 0;
 }
