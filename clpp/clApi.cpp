@@ -1,5 +1,5 @@
-#include "clApi.hpp"
-#include "libImport/lib.hpp"
+#include "CLApi.hpp"
+#include "LibImport/Lib.hpp"
 
 // Global instance of the imported library
 cl::lib_import::Lib *LIB = nullptr;
@@ -10,34 +10,34 @@ constexpr const char *LIB_NAME = "OpenCL.dll";
 
 
 #define CL_FUNC_IMPLEMENT(func) \
-    func = LIB->loadFunction<decltype(::func)>(#func);
+    func = LIB->LoadFunction<decltype(::func)>(#func);
 
-cl::ClApi* cl::ClApi::_instance = nullptr;
+cl::CLApi* cl::CLApi::m_Instance = nullptr;
 
 
-cl::ClApi* cl::ClApi::instance()
+cl::CLApi* cl::CLApi::Instance()
 {
-    if (nullptr == _instance) {
-        _instance = new ClApi();
+    if (nullptr == m_Instance) {
+        m_Instance = new CLApi();
     }
-    return _instance;
+    return m_Instance;
 }
 
-bool cl::ClApi::initialize()
+bool cl::CLApi::Initialize()
 {
     LIB = new cl::lib_import::Lib(LIB_NAME);
-    if (LIB == nullptr || !LIB->isLoaded())
+    if (LIB == nullptr || !LIB->IsLoaded())
         return false;
-    initializeFunctions();
+    InitializeFunctions();
     return true;
 }
 
-void cl::ClApi::uninitialize() const
+void cl::CLApi::Uninitialize() const
 {
     delete LIB;
 }
 
-void cl::ClApi::initializeFunctions()
+void cl::CLApi::InitializeFunctions()
 {
     // 1.0
     CL_FUNC_IMPLEMENT(clGetPlatformIDs);

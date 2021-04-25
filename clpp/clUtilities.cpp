@@ -1,11 +1,11 @@
-#include "clUtilities.hpp"
+#include "CLUtilities.hpp"
 #include "CL/cl.h"
 #include <sstream>
 
 #define ERROR_STRING_CASE(ErrorValue) \
     case ErrorValue: return #ErrorValue;
 
-std::string cl::errorToString(int errorCode)
+std::string cl::ErrorToString(int errorCode)
 {
     switch (errorCode) {
         ERROR_STRING_CASE(CL_SUCCESS);

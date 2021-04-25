@@ -1,16 +1,15 @@
-#include "clpp.hpp"
-#include "clApi.hpp"
+#include "CLpp.hpp"
 
-bool cl::initLibrary()
+bool cl::InitLibrary()
 {
-    auto *clLib = ClApi::instance();
-    const auto success = clLib->initialize();
-	return success;
+    auto *clLib = CLApi::Instance();
+    const auto success = clLib->Initialize();
+    return success;
 }
 
-bool cl::freeLibrary()
+bool cl::FreeLibrary()
 {
-    auto *clLib = ClApi::instance();
-    clLib->uninitialize();
-	return true;
+    auto *clLib = CLApi::Instance();
+    clLib->Uninitialize();
+    return true;
 }

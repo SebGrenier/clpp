@@ -1,9 +1,9 @@
-#ifndef _LIB_HPP_
-#define _LIB_HPP_
+#pragma once
+
 #include <type_traits>
 
 #ifdef WINDOWS_PLATFORM
-#include "windows/libImp.hpp"
+#include "Windows/LibImp.hpp"
 using LibImp = cl::lib_import::LibImpWin;
 #endif
 
@@ -21,20 +21,18 @@ namespace cl {
             Lib& operator = (const Lib &rhs) = delete;
             Lib& operator = (const Lib&& rhs) = delete;
 
-            bool isLoaded() const { return _isLoaded; }
+            bool IsLoaded() const { return m_IsLoaded; }
 
             template <typename T, typename = std::enable_if_t<std::is_function_v<T>>>
-            T* loadFunction(const char *funcName)
+            T* LoadFunction(const char *funcName)
             {
-                if (!_isLoaded)
+                if (!m_IsLoaded)
                     return nullptr;
-                return _imp->loadFunction<T>(funcName);
+                return m_Imp->LoadFunction<T>(funcName);
             }
         private:
-            LibImp *_imp;
-            bool _isLoaded;
+            LibImp *m_Imp;
+            bool m_IsLoaded;
         };
     }
 }
-
-#endif // _LIB_HPP_

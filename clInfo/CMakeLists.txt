@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-project (clInfo)
+project (CLInfo)
 
 # Add clpp as a 3rd party include directories
 set (BUILD_DIR "${WORKSPACEROOT}/build")
@@ -11,9 +11,9 @@ if(${WIN32})
 	add_definitions (-DWINDOWS_PLATFORM)
 endif(${WIN32})
 
-list (APPEND Sources "clInfo.cpp")
+list (APPEND Sources "CLInfo.cpp")
 
-set (CLPP_LIB "clpp.lib")
+set (CLPP_LIB "CLpp.lib")
 
 add_executable (${PROJECT_NAME} ${Sources})
 target_link_libraries (${PROJECT_NAME} ${WORKSPACEROOT}/lib/${CLPP_LIB})

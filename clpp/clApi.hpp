@@ -1,28 +1,28 @@
-#ifndef _CLLIB_HPP_
-#define _CLLIB_HPP_
-#include "clFunction.hpp"
+#pragma once
+
+#include "CLFunction.hpp"
 
 #include <CL/opencl.h>
 
 #define CL_FUNC_DECLARE(func, MajorVersion, MinorVersion) \
-    ClFunction<decltype(func), MajorVersion, MinorVersion, -1, -1> func;
+    CLFunction<decltype(func), MajorVersion, MinorVersion, -1, -1> func;
 
 #define CL_FUNC_DECLARE_DEPRECATE(func, MajorVersion, MinorVersion, DeprecatedMajor, DeprecatedMinor) \
-    ClFunction<decltype(func), MajorVersion, MinorVersion, DeprecatedMajor, DeprecatedMinor> func;
+    CLFunction<decltype(func), MajorVersion, MinorVersion, DeprecatedMajor, DeprecatedMinor> func;
 
 namespace cl {
-    class ClApi
+    class CLApi
     {
     public:
-        static ClApi* instance();
+        static CLApi* Instance();
 
-        ClApi(const ClApi& other) = delete;
-        ClApi(ClApi&& other) noexcept = delete;
-        ClApi& operator=(const ClApi& other) = delete;
-        ClApi& operator=(ClApi&& other) noexcept = delete;
+        CLApi(const CLApi& other) = delete;
+        CLApi(CLApi&& other) noexcept = delete;
+        CLApi& operator=(const CLApi& other) = delete;
+        CLApi& operator=(CLApi&& other) noexcept = delete;
 
-        bool initialize();
-        void uninitialize() const;
+        bool Initialize();
+        void Uninitialize() const;
 
         CL_FUNC_DECLARE(clGetPlatformIDs, 1, 0);
         CL_FUNC_DECLARE(clGetPlatformInfo, 1, 0);
@@ -134,15 +134,14 @@ namespace cl {
         CL_FUNC_DECLARE(clCreateImageWithProperties, 3, 0);
 
     private:
-        ClApi() = default;
-        ~ClApi() = default;
+        CLApi() = default;
+        ~CLApi() = default;
 
-        void initializeFunctions();
+        void InitializeFunctions();
 
-        static ClApi *_instance;
+        static CLApi *m_Instance;
     };
 }
 
 #undef CL_FUNC_DECLARE
-
-#endif // _CLLIB_HPP_
+#undef CL_FUNC_DECLARE_DEPRECATE

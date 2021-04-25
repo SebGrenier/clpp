@@ -1,13 +1,10 @@
-#ifndef _CL_PP_HPP_
-#define _CL_PP_HPP_
+#pragma once
 
-#include "clApi.hpp"
-#include "clUtilities.hpp"
+#include "CLApi.hpp"
+#include "CLUtilities.hpp"
+#include "CLPlatform.hpp"
 
 namespace cl {
-	bool initLibrary();
-	bool freeLibrary();
+    bool InitLibrary();
+    bool FreeLibrary();
 }
-
-
-#endif // _CL_PP_HPP_

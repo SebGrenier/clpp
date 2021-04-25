@@ -3,5 +3,5 @@
 #include <string>
 
 namespace cl {
-    std::string errorToString(int errorCode);
+    std::string ErrorToString(int errorCode);
 }

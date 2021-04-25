@@ -1,13 +1,13 @@
-#include <clpp/clpp.hpp>
+#include <CLpp/CLpp.hpp>
 
 #include <iostream>
 #include <string>
 using namespace std;
 
 #define TEST_FUNC(FUNC) \
-    if (!clApi->FUNC.valid()) { \
+    if (!clApi->FUNC.Valid()) { \
         cout << "Failed to load " << #FUNC << endl; \
-        cout << #FUNC << " requires version " << clApi->FUNC.majorVersion() << "." << clApi->FUNC.minorVersion() << endl; \
+        cout << #FUNC << " requires version " << clApi->FUNC.MajorVersion() << "." << clApi->FUNC.MinorVersion() << endl; \
     } else {\
         cout << #FUNC << " loaded successfully" << endl; \
     }
@@ -15,7 +15,7 @@ using namespace std;
 void testFunctions()
 {
     cout << "Testing functionalities..." << endl;
-    auto clApi = cl::ClApi::instance();
+    auto clApi = cl::CLApi::Instance();
 
     // 1.0 functions
     TEST_FUNC(clGetPlatformIDs);
@@ -37,8 +37,8 @@ void testFunctions()
 
 void GetPlatformInfoForParam(cl_platform_id platformId, cl_platform_info param, const string& paramName)
 {
-    auto clApi = cl::ClApi::instance();
-    if (!clApi->clGetPlatformInfo.valid())
+    auto clApi = cl::CLApi::Instance();
+    if (!clApi->clGetPlatformInfo.Valid())
         return;
 
     if (param == CL_PLATFORM_HOST_TIMER_RESOLUTION) {
@@ -46,7 +46,7 @@ void GetPlatformInfoForParam(cl_platform_id platformId, cl_platform_info param, 
         auto success = clApi->clGetPlatformInfo(platformId, param, sizeof(cl_ulong), &data, nullptr);
         if (success != CL_SUCCESS) {
             cout << "Failed to query parameter " << paramName << endl;
-            cout << cl::errorToString(success) << endl;
+            cout << cl::ErrorToString(success) << endl;
             return;
         }
         cout << paramName << ": " << data << endl;
@@ -55,7 +55,7 @@ void GetPlatformInfoForParam(cl_platform_id platformId, cl_platform_info param, 
         auto success = clApi->clGetPlatformInfo(platformId, param, 0, nullptr, &paramValueSize);
         if (success != CL_SUCCESS) {
             cout << "Failed to query parameter size of " << paramName << endl;
-            cout << cl::errorToString(success) << endl;
+            cout << cl::ErrorToString(success) << endl;
             return;
         }
 
@@ -63,7 +63,7 @@ void GetPlatformInfoForParam(cl_platform_id platformId, cl_platform_info param, 
         success = clApi->clGetPlatformInfo(platformId, param, paramValueSize, data, nullptr);
         if (success != CL_SUCCESS) {
             cout << "Failed to query parameter " << paramName << endl;
-            cout << cl::errorToString(success) << endl;
+            cout << cl::ErrorToString(success) << endl;
             return;
         }
         cout << paramName << ": " << data << endl;
@@ -82,15 +82,15 @@ void GetPlatformInfo(cl_platform_id platformId)
 
 void GetPlatformInfos()
 {
-    auto clApi = cl::ClApi::instance();
-    if (!clApi->clGetPlatformIDs.valid())
+    auto clApi = cl::CLApi::Instance();
+    if (!clApi->clGetPlatformIDs.Valid())
         return;
 
     cl_uint numPlatform = 0;
     auto success = clApi->clGetPlatformIDs(0, nullptr, &numPlatform);
     if (success != CL_SUCCESS) {
         cout << "Failed to query the number of platforms." << endl;
-        cout << cl::errorToString(success) << endl;
+        cout << cl::ErrorToString(success) << endl;
         return;
     }
 
@@ -98,7 +98,7 @@ void GetPlatformInfos()
     success = clApi->clGetPlatformIDs(numPlatform, platformIds, nullptr);
     if (success != CL_SUCCESS) {
         cout << "Failed to query the platforms." << endl;
-        cout << cl::errorToString(success) << endl;
+        cout << cl::ErrorToString(success) << endl;
         return;
     }
 
@@ -109,7 +109,7 @@ void GetPlatformInfos()
 
 int main(int argc, char** argv)
 {
-    const auto success = cl::initLibrary();
+    const auto success = cl::InitLibrary();
 
     if (!success)
         cout << "Failed to initialize clUtils" << endl;
@@ -121,7 +121,7 @@ int main(int argc, char** argv)
     GetPlatformInfos();
 
     if (success)
-        cl::freeLibrary();
+        cl::FreeLibrary();
 
     cout << std::endl << "Press Enter to continue...";
     cin.get();

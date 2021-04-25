@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-project (clpp)
+project (CLpp)
 
 set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include (set_sources)
@@ -20,18 +20,20 @@ set (INCLUDE_INSTALL_DIR "${WORKSPACEROOT}/include")
 set (LIB_INSTALL_DIR "${WORKSPACEROOT}/lib")
 
 set_sources (SOURCEFILES
-	"clpp.cpp"
-	"clApi.cpp"
-	"clUtilities.cpp"
+	"CLpp.cpp"
+	"CLApi.cpp"
+	"CLUtilities.cpp"
+	"CLPlatform.cpp"
 HEADERS
-	"clpp.hpp"
-	"clApi.hpp"
-	"clFunction.hpp"
-	"clUtilities.hpp"
+	"CLpp.hpp"
+	"CLApi.hpp"
+	"CLFunction.hpp"
+	"CLUtilities.hpp"
+	"CLPlatform.hpp"
 )
 
 # Include subdirectories
-add_subdirectory ("libImport")
+add_subdirectory ("LibImport")
 
  # Make sure c++14 is available
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_14)

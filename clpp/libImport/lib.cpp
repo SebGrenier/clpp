@@ -1,16 +1,16 @@
-#include "lib.hpp"
+#include "Lib.hpp"
 
 cl::lib_import::Lib::Lib(const char* module)
-    : _isLoaded(false)
+    : m_IsLoaded(false)
 {
-    _imp = new LibImp();
-    if (_imp->loadModule(module))
-        _isLoaded = true;
+    m_Imp = new LibImp();
+    if (m_Imp->LoadModule(module))
+        m_IsLoaded = true;
 }
 
 cl::lib_import::Lib::~Lib()
 {
-    if (_isLoaded)
-        _imp->unloadModule();
-    delete _imp;
+    if (m_IsLoaded)
+        m_Imp->UnloadModule();
+    delete m_Imp;
 }

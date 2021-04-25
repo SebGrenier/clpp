@@ -1,5 +1,4 @@
-#ifndef _CLFUNCTION_HPP_
-#define _CLFUNCTION_HPP_
+#pragma once
 
 #include <functional>
 
@@ -7,60 +6,60 @@ namespace cl {
     // Hidden implementation
     namespace details {
         template<class Ret, class ...Args>
-        class ClFunctionBase
+        class CLFunctionBase
         {
         public:
             typedef Ret ReturnType;
             typedef std::function<Ret(Args...)> FunctionType;
 
-            explicit ClFunctionBase(Ret func(Args...))
+            explicit CLFunctionBase(Ret func(Args...))
             {
                 if (nullptr != func)
-                    _func = func;
+                    m_Func = func;
             }
 
-            virtual ~ClFunctionBase() = default;
+            virtual ~CLFunctionBase() = default;
 
-            ClFunctionBase(const ClFunctionBase &rhs)
+            CLFunctionBase(const CLFunctionBase &rhs)
             {
-                _func = rhs._func;
+                m_Func = rhs.m_Func;
             }
 
-            ClFunctionBase(const ClFunctionBase &&rhs) noexcept
+            CLFunctionBase(const CLFunctionBase &&rhs) noexcept
             {
-                _func = std::move(rhs._func);
+                m_Func = std::move(rhs.m_Func);
             }
 
-            ClFunctionBase& operator = (const ClFunctionBase &rhs)  // NOLINT(cert-oop54-cpp)
+            CLFunctionBase& operator = (const CLFunctionBase &rhs)  // NOLINT(cert-oop54-cpp)
             {
-                _func = rhs._func;
+                m_Func = rhs.m_Func;
                 return *this;
             }
 
-            ClFunctionBase& operator = (ClFunctionBase &&rhs) noexcept
+            CLFunctionBase& operator = (CLFunctionBase &&rhs) noexcept
             {
-                _func = std::move(rhs._func);
+                m_Func = std::move(rhs.m_Func);
                 return *this;
             }
 
-            ClFunctionBase& operator = (Ret func(Args...))
+            CLFunctionBase& operator = (Ret func(Args...))
             {
                 FunctionType newFunction;
                 if (nullptr != func)
                     newFunction = func;
-                _func.swap(newFunction);
+                m_Func.swap(newFunction);
                 return *this;
             }
 
             Ret operator () (Args... args)
             {
-                return _func(std::forward<Args>(args)...);
+                return m_Func(std::forward<Args>(args)...);
             }
 
-            bool valid() const { return bool(_func); }
+            bool Valid() const { return bool(m_Func); }
 
         private:
-            std::function<Ret(Args ...)> _func;
+            std::function<Ret(Args ...)> m_Func;
         };
 
         template<class _Tx>
@@ -70,67 +69,67 @@ namespace cl {
         struct _Get_function_impl<_Ret(_Types...)>
         {
             /* determine type from argument list */
-            typedef ClFunctionBase<_Ret, _Types...> FunctionType;
+            typedef CLFunctionBase<_Ret, _Types...> FunctionType;
         };
     }
 
     template <class T, int MAJOR, int MINOR, int DEPRECATEDMAJOR, int DEPRECATEDMINOR>
-    class ClFunction : public details::_Get_function_impl<T>::FunctionType
+    class CLFunction : public details::_Get_function_impl<T>::FunctionType
     {
         typedef typename details::_Get_function_impl<T>::FunctionType MyBase;
 
     public:
-        ClFunction()
+        CLFunction()
             : MyBase(nullptr)
         {}
-        virtual ~ClFunction() = default;
+        virtual ~CLFunction() = default;
 
-        explicit ClFunction(T* functionPtr)
+        explicit CLFunction(T* functionPtr)
             : MyBase(functionPtr)
         {}
 
-        ClFunction(const ClFunction &other)
+        CLFunction(const CLFunction &other)
             : MyBase(other)
         {}
 
-        ClFunction(const ClFunction &&other) noexcept
+        CLFunction(const CLFunction &&other) noexcept
             : MyBase(other)
         {}
 
-        ClFunction& operator = (const ClFunction &rhs)
+        CLFunction& operator = (const CLFunction &rhs)
         {
             MyBase::operator=(rhs);
             return *this;
         }
 
-        ClFunction& operator = (ClFunction &&rhs) noexcept
+        CLFunction& operator = (CLFunction &&rhs) noexcept
         {
             MyBase::operator=(rhs);
             return *this;
         }
 
-        ClFunction& operator = (T* functionPtr)
+        CLFunction& operator = (T* functionPtr)
         {
             MyBase::operator=(functionPtr);
             return *this;
         }
 
-        int majorVersion()
+        int MajorVersion()
         {
             return MAJOR;
         }
 
-        int minorVersion()
+        int MinorVersion()
         {
             return MINOR;
         }
 
-        int deprecatedMajorVersion()
+        int DeprecatedMajorVersion()
         {
             return DEPRECATEDMAJOR;
         }
 
-        int deprecatedMinorVersion()
+        int DeprecatedMinorVersion()
         {
             return DEPRECATEDMINOR;
         }
@@ -138,5 +137,3 @@ namespace cl {
     private:
     };
 }
-
-#endif // _CLFUNCTION_HPP_
