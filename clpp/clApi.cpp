@@ -26,8 +26,10 @@ cl::ClApi* cl::ClApi::instance()
 bool cl::ClApi::initialize()
 {
     LIB = new cl::lib_import::Lib(LIB_NAME);
+    if (LIB == nullptr || !LIB->isLoaded())
+        return false;
     initializeFunctions();
-    return LIB->isLoaded();
+    return true;
 }
 
 void cl::ClApi::uninitialize() const
@@ -146,5 +148,11 @@ void cl::ClApi::initializeFunctions()
 
     // 2.2
     CL_FUNC_IMPLEMENT(clSetProgramReleaseCallback);
+    CL_FUNC_IMPLEMENT(clSetProgramSpecializationConstant);
+
+    // 3.0
+    CL_FUNC_IMPLEMENT(clSetContextDestructorCallback);
+    CL_FUNC_IMPLEMENT(clCreateBufferWithProperties);
+    CL_FUNC_IMPLEMENT(clCreateImageWithProperties);
 }
 

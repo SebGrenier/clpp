@@ -19,16 +19,27 @@ namespace cl {
                     _func = func;
             }
 
-            virtual ~ClFunctionBase() {}
+            virtual ~ClFunctionBase() = default;
 
             ClFunctionBase(const ClFunctionBase &rhs)
             {
                 _func = rhs._func;
             }
 
-            ClFunctionBase& operator = (const ClFunctionBase &rhs)  // NOLINT(cert-oop54-cpp) 
+            ClFunctionBase(const ClFunctionBase &&rhs) noexcept
+            {
+                _func = std::move(rhs._func);
+            }
+
+            ClFunctionBase& operator = (const ClFunctionBase &rhs)  // NOLINT(cert-oop54-cpp)
             {
                 _func = rhs._func;
+                return *this;
+            }
+
+            ClFunctionBase& operator = (ClFunctionBase &&rhs) noexcept
+            {
+                _func = std::move(rhs._func);
                 return *this;
             }
 
@@ -63,7 +74,7 @@ namespace cl {
         };
     }
 
-    template <class T, int MAJOR, int MINOR>
+    template <class T, int MAJOR, int MINOR, int DEPRECATEDMAJOR, int DEPRECATEDMINOR>
     class ClFunction : public details::_Get_function_impl<T>::FunctionType
     {
         typedef typename details::_Get_function_impl<T>::FunctionType MyBase;
@@ -72,13 +83,27 @@ namespace cl {
         ClFunction()
             : MyBase(nullptr)
         {}
-        virtual ~ClFunction() {}
+        virtual ~ClFunction() = default;
 
         explicit ClFunction(T* functionPtr)
             : MyBase(functionPtr)
         {}
 
+        ClFunction(const ClFunction &other)
+            : MyBase(other)
+        {}
+
+        ClFunction(const ClFunction &&other) noexcept
+            : MyBase(other)
+        {}
+
         ClFunction& operator = (const ClFunction &rhs)
+        {
+            MyBase::operator=(rhs);
+            return *this;
+        }
+
+        ClFunction& operator = (ClFunction &&rhs) noexcept
         {
             MyBase::operator=(rhs);
             return *this;
@@ -98,6 +123,16 @@ namespace cl {
         int minorVersion()
         {
             return MINOR;
+        }
+
+        int deprecatedMajorVersion()
+        {
+            return DEPRECATEDMAJOR;
+        }
+
+        int deprecatedMinorVersion()
+        {
+            return DEPRECATEDMINOR;
         }
 
     private:

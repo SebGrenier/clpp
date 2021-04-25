@@ -5,7 +5,10 @@
 #include <CL/opencl.h>
 
 #define CL_FUNC_DECLARE(func, MajorVersion, MinorVersion) \
-    ClFunction<decltype(func), MajorVersion, MinorVersion> func;
+    ClFunction<decltype(func), MajorVersion, MinorVersion, -1, -1> func;
+
+#define CL_FUNC_DECLARE_DEPRECATE(func, MajorVersion, MinorVersion, DeprecatedMajor, DeprecatedMinor) \
+    ClFunction<decltype(func), MajorVersion, MinorVersion, DeprecatedMajor, DeprecatedMinor> func;
 
 namespace cl {
     class ClApi
@@ -87,7 +90,7 @@ namespace cl {
         CL_FUNC_DECLARE(clSetEventCallback, 1, 1);
 
         CL_FUNC_DECLARE(clCompileProgram, 1, 2);
-        CL_FUNC_DECLARE(clCreateCommandQueue, 1, 2);
+        CL_FUNC_DECLARE_DEPRECATE(clCreateCommandQueue, 1, 2, 2, 0);
         CL_FUNC_DECLARE(clCreateCommandQueueWithPropertiesKHR, 1, 2);
         CL_FUNC_DECLARE(clCreateSubDevices, 1, 2);
         CL_FUNC_DECLARE(clEnqueueFillBuffer, 1, 2);
@@ -123,7 +126,7 @@ namespace cl {
         CL_FUNC_DECLARE(clCreateProgramWithIL, 2, 1);
         CL_FUNC_DECLARE(clGetKernelSubGroupInfo, 2, 1);
 
-        CL_FUNC_DECLARE(clSetProgramReleaseCallback, 2, 2);
+        CL_FUNC_DECLARE_DEPRECATE(clSetProgramReleaseCallback, 2, 2, 3, 0);
         CL_FUNC_DECLARE(clSetProgramSpecializationConstant, 2, 2);
 
         CL_FUNC_DECLARE(clSetContextDestructorCallback, 3, 0);
