@@ -6,14 +6,14 @@ using namespace std;
 
 CLPlatform::CLPlatform(cl_platform_id id)
     : m_PlatformId(id)
-{}
-
-CLPlatform::CLPlatform(const CLPlatform& other)
-    : m_PlatformId(other.m_PlatformId)
+    , m_NumericVersion(id)
+    , m_HostTimerResolution(id)
 {}
 
 CLPlatform::CLPlatform(CLPlatform&& other) noexcept
     : m_PlatformId(std::exchange(other.m_PlatformId, nullptr))
+    , m_NumericVersion(std::move(other.m_NumericVersion))
+    , m_HostTimerResolution(std::move(other.m_HostTimerResolution))
 {}
 
 CLPlatform& CLPlatform::operator=(const CLPlatform& rhs)
@@ -80,9 +80,7 @@ std::string CLPlatform::GetVersion()
 
 cl_version CLPlatform::GetNumericVersion()
 {
-    cl_version info = 0;
-    GetInfo(CL_PLATFORM_NUMERIC_VERSION, info);
-    return info;
+    return m_NumericVersion.GetValue();
 }
 
 std::string CLPlatform::GetName()
@@ -115,9 +113,7 @@ vector<cl_name_version> CLPlatform::GetExtensionsWithVersion()
 
 cl_ulong CLPlatform::GetHostTimerResolution()
 {
-    cl_ulong info = 0;
-    GetInfo(CL_PLATFORM_HOST_TIMER_RESOLUTION, info);
-    return info;
+    return m_HostTimerResolution.GetValue();
 }
 
 string CLPlatform::GetStringInfo(cl_platform_info info)

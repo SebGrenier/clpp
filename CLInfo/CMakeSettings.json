@@ -3,15 +3,15 @@
     {
       "name": "x64-Debug",
       "generator": "Visual Studio 16 2019 Win64",
-      "buildRoot": "${workspaceRoot}\\build\\clInfo\\${name}",
+      "buildRoot": "${workspaceRoot}\\..\\build\\clInfo\\${name}",
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
       "configurationType": "Debug",
-      "installRoot": "${workspaceRoot}\\build",
+      "installRoot": "${workspaceRoot}\\..\\build",
       "variables": [
         {
           "name": "WORKSPACEROOT",
-          "value": "${workspaceRoot}",
+          "value": "${workspaceRoot}/..",
           "type": "STRING"
         }
       ],
@@ -21,20 +21,20 @@
     {
       "name": "x64-Release",
       "generator": "Visual Studio 16 2019 Win64",
-      "buildRoot": "${workspaceRoot}\\build\\clInfo\\${name}",
+      "configurationType": "RelWithDebInfo",
+      "buildRoot": "${workspaceRoot}\\..\\build\\clInfo\\${name}",
+      "installRoot": "${workspaceRoot}\\..\\build",
       "cmakeCommandArgs": "",
-      "buildCommandArgs": "-m -v:minimal -p:PreferredToolArchitecture=x64",
-      "configurationType": "Release",
-      "installRoot": "${workspaceRoot}\\build",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
       "variables": [
         {
           "name": "WORKSPACEROOT",
-          "value": "${workspaceRoot}",
+          "value": "${workspaceRoot}/..",
           "type": "STRING"
         }
-      ],
-      "inheritEnvironments": [],
-      "intelliSenseMode": "windows-msvc-x64"
+      ]
     }
   ]
 }

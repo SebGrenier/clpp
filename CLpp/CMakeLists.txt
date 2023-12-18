@@ -30,6 +30,7 @@ HEADERS
 	"CLFunction.hpp"
 	"CLUtilities.hpp"
 	"CLPlatform.hpp"
+	"CLCachedProperty.hpp"
 )
 
 # Include subdirectories

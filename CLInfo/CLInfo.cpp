@@ -43,6 +43,7 @@ void GetPlatformInfos()
         cout << "Vendor: " << p.GetVendor() << endl;
         cout << "Profile: " << p.GetProfile() << endl;
         cout << "Version: " << p.GetVersion() << endl;
+        cout << "Numeric Version: " << p.GetNumericVersion() << endl;
         cout << "Extensions: " << p.GetExtensions() << endl;
         cout << "Host Timer Resolution: " << p.GetHostTimerResolution() << endl;
     }
