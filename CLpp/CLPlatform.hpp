@@ -1,6 +1,7 @@
 #pragma once
 #include "CLApi.hpp"
 #include "CLCachedProperty.hpp"
+#include "CLTypeTraits.hpp"
 #include <CL/opencl.h>
 #include <vector>
 #include <string>
@@ -13,7 +14,7 @@ namespace cl
         class CLPlatformPropertyGetter;
 
         template <typename T>
-        class CLPlatformPropertyGetter<T, std::enable_if_t<!std::is_pointer_v<T>>>
+        class CLPlatformPropertyGetter<T, std::enable_if_t<!std::is_pointer_v<T> && !is_vector<T>::value>>
         {
         public:
             bool operator()(const cl_platform_id& platformId, cl_platform_info info, T& value)
@@ -53,8 +54,8 @@ namespace cl
                     return false;
                 }
 
-                size = paramValueSize / sizeof(T);
-                T* data = new T[paramValueSize / sizeof(T)];
+                const size_t size = paramValueSize / sizeof(T);
+                T* data = new T[size];
                 success = clApi->clGetPlatformInfo(platformId, info, paramValueSize, data, nullptr);
                 if (success != CL_SUCCESS) {
                     //cout << "Failed to query parameter " << paramName << endl;
@@ -64,6 +65,41 @@ namespace cl
                 }
 
                 value = data;
+                return true;
+            }
+        };
+
+        template <typename T>
+        class CLPlatformPropertyGetter<T, std::enable_if_t<is_vector<T>::value>>
+        {
+            using U = typename T::value_type;
+
+        public:
+            bool operator()(const cl_platform_id& platformId, cl_platform_info info, T& value)
+            {
+                auto* clApi = CLApi::Instance();
+
+                if (!clApi->clGetPlatformInfo.Valid())
+                    return false;
+
+                size_t paramValueSize = 0;
+                auto success = clApi->clGetPlatformInfo(platformId, info, 0, nullptr, &paramValueSize);
+                if (success != CL_SUCCESS) {
+                    //cout << "Failed to query parameter size of " << paramName << endl;
+                    //cout << cl::ErrorToString(success) << endl;
+                    return false;
+                }
+
+                const size_t size = paramValueSize / sizeof(T);
+                value = T(size);
+                success = clApi->clGetPlatformInfo(platformId, info, paramValueSize, value.data(), nullptr);
+                if (success != CL_SUCCESS) {
+                    //cout << "Failed to query parameter " << paramName << endl;
+                    //cout << cl::ErrorToString(success) << endl;
+                    value.clear();
+                    return false;
+                }
+
                 return true;
             }
         };
@@ -153,6 +189,7 @@ namespace cl
         cl_platform_id m_PlatformId {nullptr};
         CLPlatformProperty<cl_version, CL_PLATFORM_NUMERIC_VERSION> m_NumericVersion;
         CLPlatformProperty<cl_ulong, CL_PLATFORM_HOST_TIMER_RESOLUTION> m_HostTimerResolution;
+        CLPlatformProperty<std::vector<cl_name_version>, CL_PLATFORM_EXTENSIONS_WITH_VERSION> m_ExtensionsWithVersion;
     };
 
     template <typename T, typename std::enable_if_t<!std::is_pointer_v<T>, bool>>

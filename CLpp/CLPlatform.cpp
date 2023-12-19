@@ -8,12 +8,14 @@ CLPlatform::CLPlatform(cl_platform_id id)
     : m_PlatformId(id)
     , m_NumericVersion(id)
     , m_HostTimerResolution(id)
+    , m_ExtensionsWithVersion(id)
 {}
 
 CLPlatform::CLPlatform(CLPlatform&& other) noexcept
     : m_PlatformId(std::exchange(other.m_PlatformId, nullptr))
     , m_NumericVersion(std::move(other.m_NumericVersion))
     , m_HostTimerResolution(std::move(other.m_HostTimerResolution))
+    , m_ExtensionsWithVersion(std::move(other.m_ExtensionsWithVersion))
 {}
 
 CLPlatform& CLPlatform::operator=(const CLPlatform& rhs)
@@ -21,6 +23,9 @@ CLPlatform& CLPlatform::operator=(const CLPlatform& rhs)
     if (this == &rhs)
         return *this;
     m_PlatformId = rhs.m_PlatformId;
+    m_NumericVersion = rhs.m_NumericVersion;
+    m_HostTimerResolution = rhs.m_HostTimerResolution;
+    m_ExtensionsWithVersion = rhs.m_ExtensionsWithVersion;
     return *this;
 }
 
@@ -29,6 +34,9 @@ CLPlatform& CLPlatform::operator=(CLPlatform&& rhs) noexcept
     if (this == &rhs)
         return *this;
     m_PlatformId = std::exchange(rhs.m_PlatformId, nullptr);
+    m_NumericVersion = std::move(rhs.m_NumericVersion);
+    m_HostTimerResolution = std::move(rhs.m_HostTimerResolution);
+    m_ExtensionsWithVersion = std::move(rhs.m_ExtensionsWithVersion);
     return *this;
 }
 
@@ -100,15 +108,7 @@ std::string CLPlatform::GetExtensions()
 
 vector<cl_name_version> CLPlatform::GetExtensionsWithVersion()
 {
-    cl_name_version* data = nullptr;
-    vector<cl_name_version> info;
-    size_t size = 0;
-    if (!GetInfo(CL_PLATFORM_EXTENSIONS_WITH_VERSION, data, size))
-        return info;
-
-    info.assign(data, data + size);
-    delete data;
-    return info;
+    return m_ExtensionsWithVersion.GetValue();
 }
 
 cl_ulong CLPlatform::GetHostTimerResolution()

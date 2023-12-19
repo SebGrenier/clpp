@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
 using namespace std;
 
 #define TEST_FUNC(FUNC) \
@@ -27,12 +29,28 @@ void testFunctions()
     // 2.0 functions
     TEST_FUNC(clCreateCommandQueueWithProperties);
 
+    // 2.0 deprecated functions
+    TEST_FUNC(clCreateCommandQueue);
+
     // 2.1 functions
     TEST_FUNC(clSetDefaultDeviceCommandQueue);
     TEST_FUNC(clCloneKernel);
 
     // 3.0 functions
     TEST_FUNC(clCreateBufferWithProperties);
+}
+
+string GetExtensionsWithVersionString(const vector<cl_name_version>& extensionsWithVersion)
+{
+    string result;
+    for (auto& e : extensionsWithVersion)
+    {
+        result += e.name;
+        result += " ";
+        result += to_string(e.version);
+        result += "\n";
+    }
+    return result;
 }
 
 void GetPlatformInfos()
@@ -45,6 +63,7 @@ void GetPlatformInfos()
         cout << "Version: " << p.GetVersion() << endl;
         cout << "Numeric Version: " << p.GetNumericVersion() << endl;
         cout << "Extensions: " << p.GetExtensions() << endl;
+        cout << "Extensions with version: " << GetExtensionsWithVersionString(p.GetExtensionsWithVersion()) << endl;
         cout << "Host Timer Resolution: " << p.GetHostTimerResolution() << endl;
     }
 }

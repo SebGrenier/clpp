@@ -31,6 +31,7 @@ HEADERS
 	"CLUtilities.hpp"
 	"CLPlatform.hpp"
 	"CLCachedProperty.hpp"
+	"CLTypeTraits.hpp"
 )
 
 # Include subdirectories
